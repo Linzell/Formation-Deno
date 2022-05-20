@@ -1,1 +1,0 @@
-console.log(Deno.args); // [ "a", "b", "-c", "--quiet" ]
