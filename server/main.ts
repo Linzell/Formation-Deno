@@ -14,7 +14,7 @@ async function handler(req: Request): Promise<Response> {
     console.log("Body:", body);
   }
 
-  return new Response("Hello, World!");
+  return new Response("BenBK, doit apprendre le Rust !");
 }
 
 // To listen on port 4242.
