@@ -1,4 +1,4 @@
-import { DOMParser } from "https://esm.sh/linkedom";
+import { DOMParser } from "https://esm.sh/linkedom@0.14.9";
 import { assert } from "https://deno.land/std@0.132.0/testing/asserts.ts";
 
 const document = new DOMParser().parseFromString(
