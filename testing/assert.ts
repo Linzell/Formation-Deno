@@ -13,6 +13,7 @@ import {
   assertThrows,
   assertObjectMatch,
   assertRejects,
+  AssertionError,
 } from "https://deno.land/std@0.140.0/testing/asserts.ts";
 
 Deno.test("Hello Test", () => {
@@ -149,4 +150,24 @@ Deno.test("Test Assert Throws Async", async () => {
     Error,
     "Panic! Reject Error",
   );
+});
+
+Deno.test("Test Assert Equal Fail Custom Message", () => {
+  assertEquals(2, 2, "Values Don't Match!");
+});
+
+function assertPowerOf(actual: number, expected: number, msg?: string): void {
+  let received = actual;
+  while (received % expected === 0) received = received / expected;
+  if (received !== 1) {
+    if (!msg) {
+      msg = `actual: "${actual}" expected to be a power of : "${expected}"`;
+    }
+    throw new AssertionError(msg);
+  }
+}
+
+Deno.test("Test Assert PowerOf", () => {
+  assertPowerOf(8, 2);
+  /* assertPowerOf(11, 4); */
 });
