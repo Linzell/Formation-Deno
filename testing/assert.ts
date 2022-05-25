@@ -171,3 +171,38 @@ Deno.test("Test Assert PowerOf", () => {
   assertPowerOf(8, 2);
   /* assertPowerOf(11, 4); */
 });
+
+Deno.test({
+  name: "leaky resource test",
+  async fn() {
+    await Deno.open("hello.txt");
+  },
+  sanitizeResources: false,
+});
+
+Deno.test({
+  name: "leaky operation test",
+  fn() {
+    crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode("a".repeat(100000000)),
+    );
+  },
+  sanitizeOps: false,
+});
+
+/* Deno.test({
+  name: "false success",
+  fn() {
+    Deno.exit(0);
+  },
+  sanitizeExit: false,
+}); */
+
+// This test never runs, because the processexits during "false success" test
+/* Deno.test({ 
+  name: "failing test",
+  fn() {
+    throw new Error("this test fails");
+  },
+}); */
